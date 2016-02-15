@@ -19,7 +19,7 @@ public class ParkEngine {
 		Log ll = new Log("/tmp/ppw.log");
 		
 		Car c;
-		c = new Car("AV14 URM");
+		c = new Car("AV15 URD");
 		Location l = new Location(10,20);
 		c.park(l);
 		

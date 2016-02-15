@@ -11,13 +11,25 @@ import Utils.Mysql;
 public class Car implements Vehical{
 	
 	private enum Status {
-		parked,
-		not_parked
+		PARKED("parked"),
+		NOTPARKED("not parked");
+		
+		private String type;
+	
+		private Status(String type) {
+			this.type = type;
+		}
+	
+		@Override
+		public String toString() {
+			return this.type;
+		}
 	};
 	
 	private String model;
 	private String owner;
-	private Status s;
+	private String reg;
+	private Status s = Status.NOTPARKED;
 	
 	public Car(String model, 
 			String regno,
@@ -36,6 +48,7 @@ public class Car implements Vehical{
 		if( ! this.car_valid(regno) ) {
 			throw new UnknownVehnicalException();
 		}
+		this.reg = regno;
 		
 	}
 	
@@ -43,22 +56,23 @@ public class Car implements Vehical{
 		if( this.has_parked() ) {
 			return false;
 		} else {
-			this.s = Status.parked;
+			this.s = Status.PARKED;
 		}
 		return true;
 	}
 	
 	public boolean stop_parking() {
 		if( this.has_parked() ) {
-			this.s = Status.not_parked;
+			this.s = Status.NOTPARKED;
 			return true;
 		} else {
-			return false;
+			return false;	
 		}
 	}
 	
 	public boolean has_parked() {
-		return this.s == Status.parked;
+		Mysql sql = new Mysql("ppw");
+		return sql.Check("car", "status", Status.PARKED.toString(), "reg=\'"+this.reg+"\'");
 	}
 	
 	private boolean car_valid(String reg) throws SQLException {

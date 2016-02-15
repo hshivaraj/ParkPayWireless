@@ -15,7 +15,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import Utils.Utilities;
+import static Utils.Utilities.P;
 
 public class Mysql {
 	private String USERNAME = "root";
@@ -87,8 +87,7 @@ public class Mysql {
 					   Utilities.set_toString(k) + 
 					   " VALUES " +
 					   Utilities.map_toString(v); 
-		System.out.println(query);
-		return true;
+		return ( this.executeQuery(query) != null );
 	}
 	
 	public ResultSet Select() {
@@ -102,5 +101,28 @@ public class Mysql {
 	
 	public boolean Update() {
 		return true;
+	}
+	
+	public boolean Check(String table, String c, 
+			String expected_v, String...where) {
+		
+		String q = "select "+ c + " from " + table + " where ";
+		for(int i=0; i<where.length; i++) {
+			q += where[i];
+		}
+		q += ";";
+				
+		ResultSet rs = this.executeQuery(q);
+		
+		try {
+			if(rs.next()) {
+				return (rs.getString("status").toString().equals(expected_v));
+			} else {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 }
