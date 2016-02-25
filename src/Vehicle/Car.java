@@ -1,4 +1,4 @@
-package Vehical;
+package Vehicle;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,7 +8,7 @@ import UserException.UnknownVehnicalException;
 import Utils.Mysql;
 
 
-public class Car implements Vehical{
+public class Car implements Vehicle{
 	
 	private enum Status {
 		PARKED("parked"),

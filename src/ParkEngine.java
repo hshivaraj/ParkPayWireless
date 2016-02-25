@@ -6,7 +6,7 @@ import Location.Location;
 import Utils.Log;
 import Utils.Mysql;
 import Utils.Utilities;
-import Vehical.Car;
+import Vehicle.Car;
 
 public class ParkEngine {
 

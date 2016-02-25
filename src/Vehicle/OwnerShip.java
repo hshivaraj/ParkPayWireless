@@ -1,4 +1,4 @@
-package Vehical;
+package Vehicle;
 
 public enum OwnerShip {
 	POV("Private Owned Vehical"), 

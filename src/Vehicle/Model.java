@@ -1,4 +1,4 @@
-package Vehical;
+package Vehicle;
 
 public class Model {
 
