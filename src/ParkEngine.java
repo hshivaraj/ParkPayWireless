@@ -21,17 +21,17 @@ public class ParkEngine {
 		Car c;
 		c = new Car("AV14 URM");
 		Location l = new Location(10,20);
-		c.park(l);
+		c.startParking(l);
 		
-		if( c.has_parked() ) {
+		if( c.isParked() ) {
 			ll.I("Car is been parked");
 		} else {
 			ll.I("Car is not parked");
 		}
 		
-		c.stop_parking();
+		c.stopParking();
 		
-		if( c.has_parked() ) {
+		if( c.isParked() ) {
 			ll.I("Car is been parked", 10, "thats it");
 		} else {
 			ll.I("Car is not parked");
