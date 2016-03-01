@@ -20,33 +20,31 @@ import static Utils.Utilities.P;
 public class Mysql {
 	private String USERNAME = "root";
 	private String PASSWORD = "mysore159";
-	private String HOSTNAME = "localhost";
+	private String HOSTNAME = "mydb.cvchqpuax6xy.eu-west-1.rds.amazonaws.com";
 	private String DBNAME = null;
 	private Integer PORT = 3306;
 	
 	private Connection con = null;
     private Statement st = null;
     private ResultSet rs = null;
-    
     private String db_url = null;
+    
+    private static Mysql instance = null;
+    
+    public static Mysql getInstance() {
+    	if( instance == null ) {
+    		instance = new Mysql("ppw");
+    	}
+    	return instance;
+    }
+    
 	
-    public Mysql(String dbname) {
-    	this.DBNAME = dbname;
-    	this.db_url = "jdbc:mysql://" + this.HOSTNAME + ":" + 
-    			this.PORT.toString() + "/" + dbname;
-    	
-    	try {
-    		Class.forName("com.mysql.jdbc.Driver");
-    	} catch(ClassNotFoundException ex) {
-    		System.out.println(ex.getMessage());
-    	}
-    	
-    	try {
-    		this.con = DriverManager.getConnection(this.db_url, this.USERNAME, 
-    				this.PASSWORD);
-    	} catch (SQLException ex) {
-    		System.out.println(ex.getMessage());
-    	}
+    protected Mysql(String dbname) {
+    	this.Initiliaise(dbname);
+    }
+    
+    protected Mysql() {
+    	this.Initiliaise("ppw");
     }
     
 	public Mysql(String hostname, Integer port, String dbname, 
@@ -124,5 +122,26 @@ public class Mysql {
 			e.printStackTrace();
 			return false;
 		}
+	}
+	
+	/* PRIVATE METHODS */
+	
+	private void Initiliaise(String dbname) {
+		this.DBNAME = dbname;
+    	this.db_url = "jdbc:mysql://" + this.HOSTNAME + ":" + 
+    			this.PORT.toString() + "/" + dbname;
+    	
+    	try {
+    		Class.forName("com.mysql.jdbc.Driver");
+    	} catch(ClassNotFoundException ex) {
+    		System.out.println(ex.getMessage());
+    	}
+    	
+    	try {
+    		this.con = DriverManager.getConnection(this.db_url, this.USERNAME, 
+    				this.PASSWORD);
+    	} catch (SQLException ex) {
+    		System.out.println(ex.getMessage());
+    	}
 	}
 }

@@ -19,7 +19,7 @@ public class ParkEngine {
 		Log ll = new Log("/tmp/ppw.log");
 		
 		Car c;
-		c = new Car("AV15 URD");
+		c = new Car("AV14 URM");
 		Location l = new Location(10,20);
 		c.park(l);
 		
@@ -41,12 +41,12 @@ public class ParkEngine {
 		h.put("key1", 100);
 		h.put("key2", "harish");
 		
-		Mysql sql = new Mysql("practice");
-		sql.Insert("ppw", h);
-		ResultSet rs = sql.executeQuery("select * from pet");
-		while(rs.next()) {
-			System.out.println(rs.getString("name"));
-		}
+//		Mysql sql = new Mysql("practice");
+//		sql.Insert("ppw", h);
+//		ResultSet rs = sql.executeQuery("select * from pet");
+//		while(rs.next()) {
+//			System.out.println(rs.getString("name"));
+//		}
 		
 	}
 

@@ -71,12 +71,12 @@ public class Car implements Vehicle{
 	}
 	
 	public boolean has_parked() {
-		Mysql sql = new Mysql("ppw");
+		Mysql sql = Mysql.getInstance();
 		return sql.Check("car", "status", Status.PARKED.toString(), "reg=\'"+this.reg+"\'");
 	}
 	
 	private boolean car_valid(String reg) throws SQLException {
-		Mysql sql = new Mysql("ppw");
+		Mysql sql = Mysql.getInstance();
 		ResultSet rs = sql.executeQuery("select 1 from car where reg='" + reg + "' LIMIT 1");
 		return (rs.next()) ? true : false; 
 	}
