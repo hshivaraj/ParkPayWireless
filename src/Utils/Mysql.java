@@ -68,6 +68,17 @@ public class Mysql {
 		}
 	}
 	
+	public int executeUpdate(String query) {
+		try {
+			this.st = this.con.createStatement();
+			int rc = this.st.executeUpdate(query);
+			return rc;
+		} catch(SQLException ex) {
+			System.out.println(ex.getMessage());
+            return 0;
+		}
+	}
+	
 	public void closeConnection() {
 		try {
 			this.con.close();
@@ -85,7 +96,7 @@ public class Mysql {
 					   Utilities.set_toString(k) + 
 					   " VALUES " +
 					   Utilities.map_toString(v); 
-		return ( this.executeQuery(query) != null );
+		return ( this.executeUpdate(query) > 0 );
 	}
 	
 	public ResultSet Select() {

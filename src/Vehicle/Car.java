@@ -10,26 +10,20 @@ import Utils.Mysql;
 
 public class Car extends Vehicle {
 	
-	public Car(String model, 
-			String regno,
-			String make,
-			String colur, 
-			OwnerShip type ) {
-		
-	}
-	
 	public Car(String regno) throws Exception {
 		
-		/* 1. Check if the car registration exists in the data
-		 * 2. And then create an object. 
-		 * 3. If it donst exists report the car is not registered for this service.
-		 * 
-		 */
-		
-		if( ! this.isCarValid(regno) ) {
+		if( ! this.isVehicleValid(regno) ) {
 			throw new UnknownVehnicalException();
 		}
-		this.reg = regno;
+		Mysql conn = Mysql.getInstance();
+		ResultSet rs = conn.executeQuery("select * from car where reg='" + regno + "' LIMIT 1");
+		
+		if( !rs.next() ) {
+			throw new UnknownVehnicalException();
+		} 
+		this.id = rs.getInt("id");
+		this.reg = rs.getString("reg");
+		this.status = Status.NOTPARKED;
 		
 	}
 }
