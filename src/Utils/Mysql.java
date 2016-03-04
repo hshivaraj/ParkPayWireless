@@ -104,11 +104,13 @@ public class Mysql {
 		return ss;
 	}
 	
-	public boolean Delete() {
-		return true;
+	public boolean DeleteById(String t, int id) {
+		String query = "DELETE FROM " + t + " WHERE " + 
+							"id=" + String.valueOf(id);
+		return ( this.executeUpdate(query) > 0 );
 	}
 	
-	public boolean Update() {
+	public boolean UpdateByID(String t, int id, Hashtable rd) {
 		return true;
 	}
 	

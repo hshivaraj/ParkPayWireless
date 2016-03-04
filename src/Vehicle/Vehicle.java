@@ -47,6 +47,10 @@ public abstract class Vehicle {
 	
 	public boolean stopParking() {
 		if( this.isParked() ) {
+			Mysql con = Mysql.getInstance();
+			
+			
+			
 			this.status = Status.NOTPARKED;
 			return true;
 		} else {
