@@ -2,6 +2,7 @@ package Vehicle;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.Hashtable;
 
 import Location.Location;
@@ -35,12 +36,15 @@ public abstract class Vehicle {
 		} else {
 			Mysql con = Mysql.getInstance();
 			Hashtable<String, String> v = new Hashtable<String, String>();
+
 			v.put("car_id", this.id.toString());
-			v.put("start_time", "0000");
-			
+			v.put("start_time", String.valueOf((new Date().getTime())));
 			con.Insert("park", v);
 			
-			this.status = Status.PARKED;
+			v.clear();
+			v.put("status", "\'p\'");
+			con.UpdateById("car", id, v);
+			this.setStatus(Status.PARKED);
 		}
 		return true;
 	}
@@ -48,10 +52,12 @@ public abstract class Vehicle {
 	public boolean stopParking() {
 		if( this.isParked() ) {
 			Mysql con = Mysql.getInstance();
+			Hashtable<String, String> v = new Hashtable<String, String>();
 			
+			v.put("end_time", String.valueOf((new Date().getTime())));
+			con.UpdateById("park", id, v);
 			
-			
-			this.status = Status.NOTPARKED;
+			this.setStatus(Status.NOTPARKED);
 			return true;
 		} else {
 			return false;	
@@ -69,4 +75,17 @@ public abstract class Vehicle {
 		return (rs.next()) ? true : false; 
 	}
 	
+	protected void setStatus(Status s) {
+		Mysql con = Mysql.getInstance();
+		Hashtable<String, String> v = new Hashtable<String, String>();
+		
+		if( s == Status.PARKED) {
+			v.put("status", "\'p\'");
+		} else if( s == Status.NOTPARKED ) {
+			v.put("status", "\'np\'");
+		}
+		
+		con.UpdateById("car", id, v);
+		this.status = s;
+	}
 }

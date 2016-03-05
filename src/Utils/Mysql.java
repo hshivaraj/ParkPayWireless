@@ -87,7 +87,7 @@ public class Mysql {
 		}
 	}
 	
-	public boolean Insert(String t, Hashtable rd) {
+	public int Insert(String t, Hashtable rd) {
 		Set k = rd.keySet();		
 		Collection v = rd.values();
 		
@@ -96,7 +96,7 @@ public class Mysql {
 					   Utilities.set_toString(k) + 
 					   " VALUES " +
 					   Utilities.map_toString(v); 
-		return ( this.executeUpdate(query) > 0 );
+		return this.executeUpdate(query);
 	}
 	
 	public ResultSet Select() {
@@ -110,8 +110,13 @@ public class Mysql {
 		return ( this.executeUpdate(query) > 0 );
 	}
 	
-	public boolean UpdateByID(String t, int id, Hashtable rd) {
-		return true;
+	public int UpdateById(String t, int id, Hashtable rd) {
+		Set k = rd.keySet();		
+		Collection v = rd.values();
+		
+		String query = "UPDATE " + t + " SET " + Utilities.key_value(rd) +
+							" WHERE id=" + String.valueOf(id) +  ";";
+		return this.executeUpdate(query);
 	}
 	
 	public boolean Check(String table, String c, 

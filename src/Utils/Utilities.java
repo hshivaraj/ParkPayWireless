@@ -1,6 +1,7 @@
 package Utils;
 
 import java.util.Collection;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -34,5 +35,17 @@ public class Utilities {
 		return ss;
 	}
 	
-
+	public static String key_value(Hashtable rd) {
+		String kv = "";
+		Iterator it = rd.keySet().iterator();
+		
+		while(it.hasNext()) {
+			String k = it.next().toString(); 
+			kv += k + "=" + rd.get(k);
+			if(it.hasNext()) {
+				kv += ", ";
+			}
+		}
+		return kv;
+	}
 }
