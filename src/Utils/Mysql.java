@@ -119,6 +119,12 @@ public class Mysql {
 		return this.executeUpdate(query);
 	}
 	
+	public int UpdateByWhere(String t, Hashtable where, Hashtable rd) {
+		String query="";
+		
+		return this.executeUpdate(query); 
+	}
+	
 	public boolean Check(String table, String c, 
 			String expected_v, String...where) {
 		

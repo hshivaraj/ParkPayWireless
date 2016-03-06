@@ -41,7 +41,11 @@ public class Utilities {
 		
 		while(it.hasNext()) {
 			String k = it.next().toString(); 
-			kv += k + "=" + rd.get(k);
+			if( rd.get(k) == "null") {
+				kv += k + "IS NULL";
+			} else {
+				kv += k + "=" + rd.get(k);
+			}
 			if(it.hasNext()) {
 				kv += ", ";
 			}

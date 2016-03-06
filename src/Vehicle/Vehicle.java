@@ -53,9 +53,13 @@ public abstract class Vehicle {
 		if( this.isParked() ) {
 			Mysql con = Mysql.getInstance();
 			Hashtable<String, String> v = new Hashtable<String, String>();
+			Hashtable<String, String> where = new Hashtable<String, String>();
+			
+			where.put("car_id", id.toString());
+			where.put("end_time", "null");
 			
 			v.put("end_time", String.valueOf((new Date().getTime())));
-			con.UpdateById("park", id, v);
+			con.UpdateByWhere("park", where, v);
 			
 			this.setStatus(Status.NOTPARKED);
 			return true;
