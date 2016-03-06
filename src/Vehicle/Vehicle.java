@@ -31,6 +31,12 @@ public abstract class Vehicle {
 	protected Status status = Status.NOTPARKED;
 	
 	public boolean startParking(Location l) {
+		
+		/* 1. Insert an entry in Part table for the vehicle
+ 		 * 2. Update the status for the vehicle in the car table.
+		 * 3. 
+		 */
+		
 		if( this.isParked() ) {
 			return false;
 		} else {
@@ -50,16 +56,22 @@ public abstract class Vehicle {
 	}
 	
 	public boolean stopParking() {
+		
+		/* 1. Update the park table with the end time.
+		 * 2. Update the column for the vehicle record 
+		 *    in car table to not parked. 
+		 */
+		
 		if( this.isParked() ) {
 			Mysql con = Mysql.getInstance();
-			Hashtable<String, String> v = new Hashtable<String, String>();
+			Hashtable<String, String> set = new Hashtable<String, String>();
 			Hashtable<String, String> where = new Hashtable<String, String>();
 			
 			where.put("car_id", id.toString());
 			where.put("end_time", "null");
 			
-			v.put("end_time", String.valueOf((new Date().getTime())));
-			con.UpdateByWhere("park", where, v);
+			set.put("end_time", String.valueOf((new Date().getTime())));
+			int rc = con.UpdateByWhere("park", where, set);
 			
 			this.setStatus(Status.NOTPARKED);
 			return true;

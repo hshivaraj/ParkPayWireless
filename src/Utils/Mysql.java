@@ -111,16 +111,14 @@ public class Mysql {
 	}
 	
 	public int UpdateById(String t, int id, Hashtable rd) {
-		Set k = rd.keySet();		
-		Collection v = rd.values();
-		
 		String query = "UPDATE " + t + " SET " + Utilities.key_value(rd) +
 							" WHERE id=" + String.valueOf(id) +  ";";
 		return this.executeUpdate(query);
 	}
 	
-	public int UpdateByWhere(String t, Hashtable where, Hashtable rd) {
-		String query="";
+	public int UpdateByWhere(String t, Hashtable where, Hashtable set) {		
+		String query = "UPDATE " + t + " SET " + Utilities.key_value(set) 
+							+ " WHERE " + Utilities.key_value(where, "AND") + ";";
 		
 		return this.executeUpdate(query); 
 	}

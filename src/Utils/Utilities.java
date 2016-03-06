@@ -52,4 +52,23 @@ public class Utilities {
 		}
 		return kv;
 	}
+	
+	public static String key_value(Hashtable rd, String append) {
+		String kv = "";
+		Iterator it = rd.keySet().iterator();
+		
+		while(it.hasNext()) {
+			String k = it.next().toString(); 
+			if( rd.get(k) == "null") {
+				kv += k + " IS NULL ";
+			} else {
+				kv += k + "=" + rd.get(k);
+			}
+			if(it.hasNext()) {
+				kv += " " + append + " ";
+			}
+		}
+		return kv;
+	}
+	
 }
